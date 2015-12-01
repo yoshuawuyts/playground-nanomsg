@@ -1,18 +1,25 @@
-var nano = require('nanomsg')
+const nano = require('nanomsg')
 
-var pub = nano.socket('pub')
-var sub = nano.socket('sub')
+const push = nano.socket('push')
+const pull = nano.socket('pull')
+const pub = nano.socket('pub')
+const sub = nano.socket('sub')
 
-var addr = 'tcp://127.0.0.1:7789'
-pub.bind(addr)
-sub.connect(addr)
+pull.connect('tcp://127.0.0.1:4444')
+sub.connect('tcp://127.0.0.1:3333')
+push.bind('tcp://127.0.0.1:4444')
+pub.bind('tcp://127.0.0.1:3333')
 
-sub.on('data', function (buf) {
-  console.log(String(buf))
-  pub.close()
-  sub.close()
+// setEncoding formats inbound message type
+sub.setEncoding('utf8')
+
+sub.on('data', function (msg) {
+  console.log(msg)
 })
 
-setTimeout(function () {
-  pub.send('Hello from nanomsg!')
+// pipe readable sockets to any writable socket or stream
+pull.pipe(pub)
+
+setInterval(function () {
+  push.send('hello from a push socket!')
 }, 100)
