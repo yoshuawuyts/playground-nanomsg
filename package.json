@@ -1,0 +1,7 @@
+{
+  "name": "playground-nanomsg",
+  "private": true,
+  "dependencies": {
+    "nanomsg": "^3.0.0"
+  }
+}
