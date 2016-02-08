@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "nanomsg": "^3.0.0",
-    "pbs": "^1.3.2"
+    "pbs": "^1.3.2",
+    "sodium": "^1.0.22"
   }
 }
