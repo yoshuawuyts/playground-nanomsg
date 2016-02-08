@@ -6,7 +6,7 @@
     <input type='text'>
     <button>send</button>
     <script>
-      var ws = new WebSocket('ws://127.0.0.1:7789', [ 'pair.sp.nanomsg.org' ])
+      var ws = new WebSocket('ws://127.0.0.1:7789', [ 'pub.sp.nanomsg.org' ])
       ws.onopen = function open() {
         console.log('opeened')
       }
