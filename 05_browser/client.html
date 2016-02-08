@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <p>nanomsg ws test:&nbsp<span></span></p>
+    <input type='text'>
+    <button>send</button>
+    <script>
+      var ws = new WebSocket('ws://127.0.0.1:7789', [ 'pair.sp.nanomsg.org' ])
+      ws.onopen = function open() {
+        console.log('opeened')
+      }
+      ws.onerror = function error(err) { console.log(err) }
+      ws.onmessage = function message(e) {
+        console.log('msg receiiiveed')
+        var reader = new FileReader()
+        reader.addEventListener('loadend', function() {
+          document.querySelector('span').textContent = reader.result
+        })
+        reader.readAsText(e.data)
+      }
+    </script>
+  </body>
+</html>
